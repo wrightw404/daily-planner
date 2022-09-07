@@ -1,4 +1,7 @@
 var startButton = $('#startBtn');
+var questionBoxEl = document.querySelector('#questionBox');
+//var questionBoxEl = $('#questionBox');
+//var hideQuestions = document.getElementsByClassName('hidden');
 
 var question = [
     {
@@ -22,8 +25,17 @@ var score = 0;
 var timer;
 var timerCount;
 
-for (var i=0; i < question.length; i++) {
-    var userInput = prompt(question[i].prompt)
+$('#startBtn').on('click', gameStart) 
 
-
+function gameStart() {
+    console.log('started');
+    questionBoxEl.classList.remove('hidden');
+    $('#wrapper').remove();
+    
+    
 }
+//for (var i=0; i < question.length; i++) {
+//    var userInput = prompt(question[i].prompt)
+
+
+//}
