@@ -1,0 +1,35 @@
+* {
+    margin: auto 0px;
+    padding: 0px;
+}
+header {
+    margin-top: 5%;
+    width: 100%;
+    border-bottom: 5px solid black;
+}
+
+#header {
+    display: flex;
+    margin: 0px 50px;
+    margin-bottom: 20px;
+}
+
+#scores, #time {
+   flex: 50%;
+}
+
+#main-section {
+    margin-top: 5%;
+    border-bottom: 5px solid black;
+}
+
+#opening {
+    text-align: center;
+    margin: 0px 50px;
+    margin-bottom: 5%;
+}
+
+#opening h2, h4{
+    display: block;
+    line-height: 300%;
+}
