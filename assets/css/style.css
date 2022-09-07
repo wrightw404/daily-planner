@@ -20,7 +20,7 @@ header {
     margin-bottom: 20px;
 }
 
-#scores, #time {
+#scores, #timer {
    flex: 50%;
 }
 

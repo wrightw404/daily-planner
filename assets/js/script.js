@@ -1,5 +1,6 @@
 var startButton = $('#startBtn');
 var questionBoxEl = document.querySelector('#questionBox');
+var timeSpot = document.querySelector('#timer');
 //var questionBoxEl = $('#questionBox');
 //var hideQuestions = document.getElementsByClassName('hidden');
 
@@ -21,9 +22,9 @@ var question = [
         answer: "b"
     }
 ]
+var secondsLeft = 0;
 var score = 0;
-var timer;
-var timerCount;
+
 
 $('#startBtn').on('click', gameStart) 
 
@@ -31,8 +32,26 @@ function gameStart() {
     console.log('started');
     questionBoxEl.classList.remove('hidden');
     $('#wrapper').remove();
-    
-    
+
+    startTimer();
+}
+
+function startTimer() {
+    var timeLeft = 75;
+
+    var timeInterval = setInterval(function () {
+        if (timeLeft>1){
+            timeSpot.textContent = `${timeLeft} seconds remaining`;
+            timeLeft--;
+        } else if (timeLeft===1){
+            timeSpot.textContent = `${timeLeft} second remaining`;
+            timeLeft--;
+        } else {
+            timeSpot.textContent = '';
+            clearInterval(timeInterval);
+            //when timer ends create function that brings you to scorecard
+        }
+    }, 1000);
 }
 //for (var i=0; i < question.length; i++) {
 //    var userInput = prompt(question[i].prompt)
