@@ -1,37 +1,63 @@
 var startButton = $('#startBtn');
 var questionBoxEl = document.querySelector('#questionBox');
 var timeSpot = document.querySelector('#timer');
+var questionSpot = document.querySelector('#question');
+var questionBtns = document.querySelector('#questionButtons');
+var randomQuestion;
+var questionI;
 //var questionBoxEl = $('#questionBox');
 //var hideQuestions = document.getElementsByClassName('hidden');
 
-var question = [
+var questionArr = [
     {
-        prompt: "JavaScript is a ___ -side programming language.\n(a) client\n(b) server\n(c) both\n(d) none",
-        answer: "c"
+        question: "JavaScript is a ___ -side programming language.",
+        answers: [ 
+            {text: "client", correct: true},
+            {text: "server", correct: false},
+            {text: "both", correct: false},
+            {text: "none", correct: false}
+        ]
     }, 
     {
-        prompt:"Inside which HTML element do we put the JavaScript?\n(a) <scripting>\n(b) <javascript>\n(c) <script>\n(d) <js>",
-        answer: "c"
+        question:"Inside which HTML element do we put the JavaScript?",
+        answers: [ 
+            {text: "<scripting>", correct: false},
+            {text: "<javascript>", correct: false},
+            {text: "<script>", correct: true},
+            {text: "<js>", correct: false}
+        ]
     },
     {
-        prompt: "Where is the correct place to insert a JavaScript?\n(a) <head> section\n(b) both <head> and <body> sections\n(c) <body> section",
-        answer: "c"
+        question: "Where is the correct place to insert a JavaScript?",
+        answers: [ 
+            {text: "<head> section", correct: false},
+            {text: "both <head> & <body>", correct: false},
+            {text: "<body> section", correct: true},
+            {text: "neither", correct: false}
+        ]
     },
     {
-        prompt: "What is the correct syntax for referring to an external script called?\n(a) <script name=''>\n(b) <script src=''>\n(c) <script href=''>",
-        answer: "b"
+        question: "What is the correct syntax for referring to an external script called? <script href=''>",
+        answers: [ 
+            {text: "<script name=''>", correct: false},
+            {text: "<script src=''>", correct: true},
+            {text: "<script href=''>", correct: false},
+            {text: "<link href=''>", correct: false}
+        ]
     }
 ]
-var secondsLeft = 0;
+
 var score = 0;
 
 
 $('#startBtn').on('click', gameStart) 
 
 function gameStart() {
-    console.log('started');
+    //console.log('started');
     questionBoxEl.classList.remove('hidden');
     $('#wrapper').remove();
+    randomQuestion = questionArr.sort(() => Math.random() - .5);
+    questionI = 0;
 
     startTimer();
 }
@@ -52,9 +78,36 @@ function startTimer() {
             //when timer ends create function that brings you to scorecard
         }
     }, 1000);
+    nextQuestion();
 }
-//for (var i=0; i < question.length; i++) {
-//    var userInput = prompt(question[i].prompt)
 
+function nextQuestion(){
+    showQuestion(randomQuestion[questionI]);
+}
 
+function showQuestion(question){
+    questionSpot.textContent = question.question;
+    question.answers.forEach(answer => {  //=> arrow function
+        const newAnswerButtons = document.createElement('button'); 
+        newAnswerButtons.textContent = answer.text;  //creates buttons with the text from the answers 
+        newAnswerButtons.classList.add('btn'); //gives new button the class of 'btn' so it will be styled the same 
+        if (answer.correct) {
+            newAnswerButtons.dataset.correct = answer.correct;
+        }
+       // newAnswerButtons.on('click', chosenAnswer);
+        questionBtns.appendChild(newAnswerButtons);
+        //need to append to #questionButtons 
+    })
+
+}
+
+function chosenAnswer() {
+
+}
+//function selectAnswer 
+//for (var i = 0; i < questionArr.length; i++){
+ //   var selectQuestion = questionArr.question[i]; 
+        
 //}
+
+
