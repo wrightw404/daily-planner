@@ -53,8 +53,7 @@ var score = 0;
 $('#startBtn').on('click', gameStart) 
 
 function gameStart() {
-    //console.log('started');
-    questionBoxEl.classList.remove('hidden');
+   questionBoxEl.removeAttribute('class');
     $('#wrapper').remove();
     randomQuestion = questionArr.sort(() => Math.random() - .5);
     questionI = 0;
@@ -62,8 +61,12 @@ function gameStart() {
     startTimer();
 }
 
+function endQuiz() {
+
+}
+
 function startTimer() {
-    var timeLeft = 75;
+    var timeLeft = 5;
 
     var timeInterval = setInterval(function () {
         if (timeLeft>1){
@@ -75,6 +78,13 @@ function startTimer() {
         } else {
             timeSpot.textContent = '';
             clearInterval(timeInterval);
+            var endMenuEl = document.getElementById('endMenu');
+            endMenuEl.removeAttribute('class');
+            
+            var endScoreEl = document.getElementById('endScore');
+            endScoreEl.textContent = timeLeft;
+
+            questionBoxEl.setAttribute('class', 'hidden');
             //when timer ends create function that brings you to scorecard
         }
     }, 1000);
@@ -103,7 +113,8 @@ function showQuestion(question){
 }
 
 function chosenAnswer() {
-
+  //  var userAnswer = e.target;
+  //  var userAnserValue = userAnswer.dataset.correct
 }
 //function selectAnswer 
 //for (var i = 0; i < questionArr.length; i++){
