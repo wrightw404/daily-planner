@@ -84,6 +84,9 @@ function startTimer() {
             var endScoreEl = document.getElementById('endScore');
             endScoreEl.textContent = timeLeft;
 
+            var mainSectionEl =document.getElementById('main-section');
+            mainSectionEl.setAttribute('class', 'hidden');
+
             questionBoxEl.setAttribute('class', 'hidden');
             //when timer ends create function that brings you to scorecard
         }
