@@ -1,12 +1,11 @@
-var startButton = $('#startBtn');
+var startButton = document.getElementById('startBtn');
 var questionBoxEl = document.querySelector('#questionBox');
 var timeSpot = document.querySelector('#timer');
 var questionSpot = document.querySelector('#question');
 var questionBtns = document.querySelector('#questionButtons');
 var randomQuestion;
 var questionI = 0;
-//var questionBoxEl = $('#questionBox');
-//var hideQuestions = document.getElementsByClassName('hidden');
+
 
 var questions = [
     {
@@ -35,15 +34,20 @@ var questions = [
 ]
 
 var score = localStorage.getItem('score');
+var nxtBtn = document.getElementById('nextBtn');
     
-
+nxtBtn.addEventListener('click', () => {
+    questionI++;
+    showQuestion();
+})
 
 
 $('#startBtn').on('click', gameStart) 
 
 function gameStart() {
    questionBoxEl.removeAttribute('class');
-    $('#wrapper').remove();
+   nxtBtn.classList.remove('hidden');
+   startButton.classList.add('hidden');
    randomQuestion = questions.sort(() => Math.random() - .5);
     questionI = 0;
 
@@ -74,7 +78,9 @@ function startTimer() {
             mainSectionEl.setAttribute('class', 'hidden');
 
             questionBoxEl.setAttribute('class', 'hidden');
-            //when timer ends create function that brings you to scorecard
+
+           
+            
         }
     }, 1000);
     showQuestion();
@@ -82,22 +88,37 @@ function startTimer() {
 
 function showQuestion(){
     var shownQuestion = randomQuestion[questionI];
-    //var questionTitle = document.getElementById('question');
+    
     questionSpot.textContent = shownQuestion['title'];
     questionBtns.textContent = " ";
     for (var i = 0; i < shownQuestion['options'].length; i++){
     var answerBtns = shownQuestion['options'][i];
     var newAnswerButtons = document.createElement('button');
-    //newAnswerButtons.setAttribute("class", "options");
-    newAnswerButtons.classList.add('options');
+    
+    newAnswerButtons.setAttribute('class', 'options');
     newAnswerButtons.setAttribute("value", answerBtns);
     newAnswerButtons.textContent = `${i + 1}. ${answerBtns}`
     questionBtns.appendChild(newAnswerButtons);
 
+    if (shownQuestion['title'].length < questionI + 1){
+       
+        endMenuEl.removeAttribute('class');
+        
+       
+        endScoreEl.textContent = timeLeft;
+
+      
+        mainSectionEl.setAttribute('class', 'hidden');
+
+        questionBoxEl.setAttribute('class', 'hidden');
+
+        endScoreEl.textContent = score;
+    }
+    
     }
 }
 
-questionBtns.addEventListener('click', showQuestion);
+questionBtns.addEventListener('click', checkAnswers);
 
 function checkAnswers(e){
     var btnCheck = e.target;
@@ -123,60 +144,14 @@ function checkAnswers(e){
 
     display.classList.add('feedback');
 
-    questionI++;
+} 
 
-    if(timeLeft <=0){
-        clearInterval(timeInterval);
-            var endMenuEl = document.getElementById('endMenu');
-            endMenuEl.removeAttribute('class');
-            
-            var endScoreEl = document.getElementById('endScore');
-            endScoreEl.textContent = timeLeft;
+   
+var submitBtn = document.getElementById('submit');
 
-            var mainSectionEl =document.getElementById('main-section');
-            mainSectionEl.setAttribute('class', 'hidden');
-
-            questionBoxEl.setAttribute('class', 'hidden');
-
-            endScoreEl.textContent = score;
-            //when timer ends create function that brings you to scorecard
-        }
-    }
+submitBtn.addEventListener('click', href="./")
 
 
 
-
-
-
-
-
-
-
-//function showQuestion(question){
-//    questionSpot.textContent = question.question;
-//    question.answers.forEach(answer => {  //=> arrow function
-//        const newAnswerButtons = document.createElement('button'); 
- //       newAnswerButtons.textContent = answer.text;  //creates buttons with the text from the answers 
-//        newAnswerButtons.classList.add('btn'); //gives new button the class of 'btn' so it will be styled the same 
-//        if (answer.correct) {
- //           newAnswerButtons.dataset.correct = answer.correct;
- //       }
- //       newAnswerButtons.addEventListener('click', chosenAnswer);
-//        questionBtns.appendChild(newAnswerButtons);
-        //need to append to #questionButtons 
-
- //   })
-
-//}
-
-//function chosenAnswer() {
-  //  var userAnswer = e.target;
-  //  var userAnserValue = userAnswer.dataset.correct
-//}
-//function selectAnswer 
-//for (var i = 0; i < questionArr.length; i++){
- //   var selectQuestion = questionArr.question[i]; 
-        
-//}
 
 
