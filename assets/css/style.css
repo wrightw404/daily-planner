@@ -53,6 +53,17 @@ header {
     margin: 45px, 0px;
 }
 
+#endMenu {
+    margin-top: 5%;
+}
+
+#endMenu h2, p, div {
+    text-align: center;
+    display: block;
+    line-height: 300%;
+}
+
+
 .hidden {
     display: none;
 }

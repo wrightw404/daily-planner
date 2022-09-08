@@ -37,7 +37,7 @@ var questionArr = [
         ]
     },
     {
-        question: "What is the correct syntax for referring to an external script called? <script href=''>",
+        question: "What is the correct syntax for referring to an external script called?",
         answers: [ 
             {text: "<script name=''>", correct: false},
             {text: "<script src=''>", correct: true},
@@ -94,9 +94,10 @@ function showQuestion(question){
         if (answer.correct) {
             newAnswerButtons.dataset.correct = answer.correct;
         }
-       // newAnswerButtons.on('click', chosenAnswer);
+        newAnswerButtons.addEventListener('click', chosenAnswer);
         questionBtns.appendChild(newAnswerButtons);
         //need to append to #questionButtons 
+
     })
 
 }

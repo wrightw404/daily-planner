@@ -31,10 +31,6 @@
                     <h3 id="question">Question</h3>
                 </div>
                 <div id="questionButtons" class="btn-table">
-                    <button class="btn">answer 1</button>
-                    <button class="btn">answer 2</button>
-                    <button class="btn">answer 3</button>
-                    <button class="btn">answer 4</button>
                 </div>
             </div>
             <div id="wrapper">
@@ -44,13 +40,19 @@
     </div>
 
    
+    <section id="endMenu" class="hidden">
+        <h2>You have finished the quiz</h2>
+        <p>Your final score is <span id="finalScore"></span></p>
+        <div>
+            <label>Enter initials</label>
+            <input type="text" id="initials"/>
+            <button id="submit">Submit</button>
+        </div>
+    </section>
 
+    <section id="feedback" class="hidden"></section>
 
-    <div id="bottom-section"> 
-        <section id="display-answer">
-        </section>
-    </div>
-
+   
 
 
 
