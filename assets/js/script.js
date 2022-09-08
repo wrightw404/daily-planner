@@ -34,7 +34,9 @@ var questions = [
     }
 ]
 
-var score = 0;
+var score = localStorage.getItem('score');
+    
+
 
 
 $('#startBtn').on('click', gameStart) 
@@ -42,7 +44,7 @@ $('#startBtn').on('click', gameStart)
 function gameStart() {
    questionBoxEl.removeAttribute('class');
     $('#wrapper').remove();
-    randomQuestion = questions.sort(() => Math.random() - .5);
+   randomQuestion = questions.sort(() => Math.random() - .5);
     questionI = 0;
 
     startTimer();
@@ -50,7 +52,7 @@ function gameStart() {
 
 
 function startTimer() {
-    var timeLeft = 5;
+    var timeLeft = 35;
 
     var timeInterval = setInterval(function () {
         if (timeLeft>1){
@@ -79,25 +81,67 @@ function startTimer() {
 }
 
 function showQuestion(){
-    var shownQuestion = questions[questionI];
+    var shownQuestion = randomQuestion[questionI];
     //var questionTitle = document.getElementById('question');
     questionSpot.textContent = shownQuestion['title'];
     questionBtns.textContent = " ";
     for (var i = 0; i < shownQuestion['options'].length; i++){
     var answerBtns = shownQuestion['options'][i];
     var newAnswerButtons = document.createElement('button');
-    newAnswerButtons.setAttribute("class", "options");
+    //newAnswerButtons.setAttribute("class", "options");
+    newAnswerButtons.classList.add('options');
     newAnswerButtons.setAttribute("value", answerBtns);
     newAnswerButtons.textContent = `${i + 1}. ${answerBtns}`
     questionBtns.appendChild(newAnswerButtons);
 
     }
-    
 }
 
-function nextQuestion(){
-    
-}
+questionBtns.addEventListener('click', showQuestion);
+
+function checkAnswers(e){
+    var btnCheck = e.target;
+
+    if(!btnCheck.matches('options')){
+        return
+    }
+    if(btnCheck.value !== questionBtns[questionI]['answers']){
+        timeLeft -= 5;
+        if(timeLeft < 0){
+            timeLeft = 0;
+        }
+        timeSpot.textContent = timeLeft;
+        var display = document.getElementById('feedback');
+        display.removeAttribute('class','hidden');
+        display.textContent('wrong');
+    } else {
+        display.removeAttribute('class', 'hidden');
+        display.textContent('correct');
+        score++;
+        localStorage.setItem('score', score);
+    }
+
+    display.classList.add('feedback');
+
+    questionI++;
+
+    if(timeLeft <=0){
+        clearInterval(timeInterval);
+            var endMenuEl = document.getElementById('endMenu');
+            endMenuEl.removeAttribute('class');
+            
+            var endScoreEl = document.getElementById('endScore');
+            endScoreEl.textContent = timeLeft;
+
+            var mainSectionEl =document.getElementById('main-section');
+            mainSectionEl.setAttribute('class', 'hidden');
+
+            questionBoxEl.setAttribute('class', 'hidden');
+
+            endScoreEl.textContent = score;
+            //when timer ends create function that brings you to scorecard
+        }
+    }
 
 
 
